@@ -1,13 +1,13 @@
 # FMFNet: Improve the 3D Object Detection and Tracking via Feature Map Flow
+![img|center](./demo.gif)
 
-Follow these steps to reproduce our results on nuScenes validation and test sets and get pretrained models (we could not attach them due to the limited size of the supplementary materials to only 100MB) :
 
-NOTE: some parts of the our code is based on open-source public repositories (we removed all licenses as stated in the Submission Guidelines) 
+Follow these steps to reproduce our results on nuScenes validation and test sets and get pretrained models.
 
-## After unzipping the FMF.zip :
+## After cloning the repository :
 ```bash
-cd path/to/FMF_ws # specify the correct path here
-cd FMF_ws
+cd path/to/FMFNet # specify the correct path here
+cd FMFNet
 ```
 
 ## Download [nuScenes dataset](https://www.nuscenes.org) and organize it as follows:
@@ -34,7 +34,7 @@ cd FMF_ws
 ```
 ### Go to docker directory:
 ```bash
-cd FMF_ws/docker
+cd FMFNet/docker
 ```
 ### build FMF docker image:
 ```bash
