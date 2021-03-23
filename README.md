@@ -1,5 +1,5 @@
 # FMFNet: Improve the 3D Object Detection and Tracking via Feature Map Flow
-![img|center](./demo.gif)
+![img|center](./demo.GIF)
 
 
 Follow these steps to reproduce our results on nuScenes validation and test sets and get pretrained models.
