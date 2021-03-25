@@ -7,7 +7,7 @@
 ## Main Results
 
 ## Lisence
-FMFNet is released under MIT license (see LICENSE). It is developed based on a forked version of CenterPoint. We also incorperate a large amount of code from Det3D, CenterNet and CenterTrack. Note that both nuScenes dataset is under non-commercial license.
+FMFNet is released under MIT license (see [LICENSE](LICENSE)). It is developed based on a forked version of CenterPoint. We also incorperate a large amount of code from [det3d](https://github.com/poodarchu/Det3D), [CenterNet](https://github.com/xingyizhou/CenterNet) and [CenterTrack](https://github.com/xingyizhou/CenterTrack). Note that nuScenes dataset is under non-commercial license.
 
 ## Use FMFNet
 Follow these steps to reproduce our results on nuScenes validation and test sets and get pretrained models.
