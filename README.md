@@ -48,30 +48,7 @@ cd FMFNet
                             |── v1.0-test <-- metadata and annotations
                             |── infos_test_10sweeps_withvelo.pkl <-- test info               (after data preparation)
 ```
-### Go to docker directory:
-```bash
-cd FMFNet/docker
-```
-### build FMF docker image:
-```bash
-./docker_build.sh
-```
-### Start FMF docker container:
-Open docker_start.sh and specify the correct path to nuScenes Dataset and in run this command in terminal:
-```bash
-./docker_start.sh
-```
-### Enter the container:
-```bash
-./docker_into.sh
-```
 
-## Now INSIDE the running container:
-```bash
-export PYTHONPATH="${PYTHONPATH}:/home/trainer/fmf/FMF"
-export PYTHONPATH="${PYTHONPATH}:/home/trainer/fmf/nuscenes-devkit/python-sdk"
-Bash setup.bash
-```
 ### Prepare dataset
 ```bash
 python3 tools/create_data.py nuscenes_data_prep --root_path=/home/trainer/fmf/FMF/data/nuScenes --version="v1.0-trainval" --nsweeps=10
