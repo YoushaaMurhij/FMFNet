@@ -8,7 +8,21 @@ from common concatenation to context-based feature map fusion and odometry usage
 Jetson AGX Xavier single-board computer with point cloud processing speed of 6-9 FPS.
 
 ## Main Results
+#### 3D detection on nuScenes test set 
 
+|         |  MAP ↑  | NDS ↑  | FPS ↑|
+|---------|---------|--------|------|
+|VoxelNet |  58.0   | 65.9   |  17  |    
+|PointPillars |  53.8   | 62.7   | 29 |    
+
+#### 3D Tracking on nuScenes test set 
+
+|          | AMOTA ↑ | IDS ↓ |
+|----------|---------|---------|
+| VoxelNet |   61.2      |  870       |       
+| PointPillars |   58.1      |  736       |  
+
+All results are tested on a RTX 3060 ti GPU with batch size 1.
 ## Lisence
 FMFNet is released under MIT license (see [LICENSE](LICENSE)). It is developed based on a forked version of CenterPoint. We also incorperate a large amount of code from [det3d](https://github.com/poodarchu/Det3D), [CenterNet](https://github.com/xingyizhou/CenterNet) and [CenterTrack](https://github.com/xingyizhou/CenterTrack). Note that nuScenes dataset is under non-commercial license.
 
