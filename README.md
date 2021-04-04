@@ -39,6 +39,7 @@ Follow these steps to reproduce our results on nuScenes validation and test sets
 cd path/to/FMFNet # specify the correct path here
 cd FMFNet
 ```
+Please refer to [INSTALL](/INSTALL.md) to run the docker container for FMFNet.
 
 ## Download [nuScenes dataset](https://www.nuscenes.org) and organize it as follows:
 
