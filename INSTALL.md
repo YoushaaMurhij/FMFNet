@@ -1,4 +1,8 @@
-
+## After cloning the repository :
+```bash
+cd path/to/FMFNet # specify the correct path here
+cd FMFNet
+```
 
 ### Go to docker directory:
 ```bash
