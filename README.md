@@ -23,6 +23,13 @@ Jetson AGX Xavier single-board computer with point cloud processing speed of 6-9
 | PointPillars |   58.1      |  736       |  
 
 All results are tested on a RTX 3060 ti GPU with batch size 1.
+
+## Use FMFNet
+Follow the provided steps to reproduce our results on nuScenes validation and test sets and get pretrained models.
+
+
+Please refer to [INSTALL](/INSTALL.md) to run the docker container for FMFNet.
+For training and testing please follow the instructions in [START](/START.md)
 ## Lisence
 FMFNet is released under MIT license (see [LICENSE](LICENSE)). It is developed based on a forked version of CenterPoint. We also incorperate a large amount of code from [det3d](https://github.com/poodarchu/Det3D), [CenterNet](https://github.com/xingyizhou/CenterNet) and [CenterTrack](https://github.com/xingyizhou/CenterTrack). Note that nuScenes dataset is under non-commercial license.
 

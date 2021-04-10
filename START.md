@@ -1,10 +1,3 @@
-
-## Use FMFNet
-Follow these steps to reproduce our results on nuScenes validation and test sets and get pretrained models.
-
-
-Please refer to [INSTALL](/INSTALL.md) to run the docker container for FMFNet.
-
 ## Download [nuScenes dataset](https://www.nuscenes.org) and organize it as follows:
 
 ```bash
