@@ -4,8 +4,6 @@ services:
   - docker
 
 before_install:
-  - docker build . \
-            -f docker/Dockerfile/Dockerfile \
-            -t x64/fmf:latest  
+  - docker build . -f docker/Dockerfile/Dockerfile -t x64/fmf:latest  
 script:
   - ./docker/docker_start.sh
