@@ -1,11 +1,11 @@
 from ..registry import DETECTORS
 from .single_stage import SingleStageDetector
 from det3d.torchie.trainer import load_checkpoint
-import torch 
+from torch import nn, empty, cat
 from copy import deepcopy 
 
 @DETECTORS.register_module
-class VoxelNet(SingleStageDetector):
+class FMF_Concat_VN(SingleStageDetector):
     def __init__(
         self,
         reader,
@@ -16,9 +16,17 @@ class VoxelNet(SingleStageDetector):
         test_cfg=None,
         pretrained=None,
     ):
-        super(VoxelNet, self).__init__(
+        super(FMF_Concat_VN, self).__init__(
             reader, backbone, neck, bbox_head, train_cfg, test_cfg, pretrained
         )
+        self.tensor = empty(4, bbox_head.in_channels, 128, 128).cuda()   # TODO don't hardcore Batch_size 
+        self.shared_conv = nn.Sequential(
+            nn.Conv2d(2*bbox_head.in_channels, bbox_head.in_channels,
+            kernel_size=3, padding=1, bias=True),
+            nn.BatchNorm2d(bbox_head.in_channels),
+            nn.ReLU(inplace=False).cuda()
+        )
+
         
     def extract_feat(self, data):
         input_features = self.reader(data["features"], data["num_voxels"])
@@ -47,6 +55,11 @@ class VoxelNet(SingleStageDetector):
         )
 
         x, _ = self.extract_feat(data)
+
+        x1 = cat((x,self.tensor),1)
+        self.temp = x.detach().clone()
+        x = self.shared_conv(x1)
+
         preds = self.bbox_head(x)
 
         if return_loss:

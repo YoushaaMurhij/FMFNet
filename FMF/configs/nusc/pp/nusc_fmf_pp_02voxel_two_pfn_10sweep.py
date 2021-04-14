@@ -22,7 +22,7 @@ target_assigner = dict(
 
 # model settings
 model = dict(
-    type="PointPillars",
+    type="FMF_Concat_PP",
     pretrained=None,
     reader=dict(
         type="PillarFeatureNet",
@@ -83,7 +83,7 @@ test_cfg = dict(
 # dataset settings
 dataset_type = "NuScenesDataset"
 nsweeps = 10
-data_root = "mini" #data/nuScenes
+data_root = "data/nuScenes"
 
 db_sampler = dict(
     type="GT-AUG",
@@ -123,7 +123,7 @@ db_sampler = dict(
 )
 train_preprocessor = dict(
     mode="train",
-    shuffle_points=True,
+    shuffle_points=False,
     global_rot_noise=[-0.3925, 0.3925],
     global_scale_noise=[0.95, 1.05],
     db_sampler=db_sampler,
@@ -159,8 +159,8 @@ test_pipeline = [
     dict(type="Reformat"),
 ]
 
-train_anno = "demo/nuScenes/demo_infos.pkl"
-val_anno = "demo/nuScenes/demo_infos.pkl"
+train_anno = "data/nuScenes/infos_train_10sweeps_withvelo_filter_True.pkl"
+val_anno = "data/nuScenes/infos_val_10sweeps_withvelo_filter_True.pkl"
 test_anno = None
 
 data = dict(

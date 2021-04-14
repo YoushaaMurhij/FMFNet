@@ -1,11 +1,7 @@
 from ..registry import DETECTORS
 from .single_stage import SingleStageDetector
 from copy import deepcopy 
-from torch import cat, nn, empty, autograd 
-#from .attention import _SelfAttentionBlock as attention
-import torch.nn.functional as F
-import torch
-Batch_Size = 4
+
 @DETECTORS.register_module
 class PointPillars(SingleStageDetector):
     def __init__(
@@ -20,14 +16,6 @@ class PointPillars(SingleStageDetector):
     ):
         super(PointPillars, self).__init__(
             reader, backbone, neck, bbox_head, train_cfg, test_cfg, pretrained
-        )
-        self.temp = empty(Batch_Size, 384, 128, 128).cuda()  # set Batch_Size = 4 during test
-        #self.att = attention(384, 384, 384)
-        self.shared_conv = nn.Sequential(
-            nn.Conv2d(768, 384,
-            kernel_size=3, padding=1, bias=True),
-            nn.BatchNorm2d(384),
-            nn.ReLU(inplace=False).cuda()
         )
 
     def extract_feat(self, data):
@@ -58,14 +46,7 @@ class PointPillars(SingleStageDetector):
         )
 
         x = self.extract_feat(data)
-        # # -- begin --
-        #x_att = self.att(x, self.temp)
-        x1 = cat((x,self.temp),1)
-        self.temp = x.detach().clone()
-        x = self.shared_conv(x1)
-        # # -- end --
         preds = self.bbox_head(x)
-
 
         if return_loss:
             return self.bbox_head.loss(example, preds)
