@@ -5,7 +5,7 @@ orbs:
   python: circleci/python@0.2.1
 
 jobs:
-  build-and-test:
+  build:
     runs-on: ubuntu-latest
     env:
       DOCKER_IMAGE_NAME: x64/fmf:latest
@@ -13,8 +13,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - name: Build Docker
-        run: |
+      - run: |
           docker build . --file ${{env.DOCKER_FILE_PATH}} --tag ${{env.DOCKER_IMAGE_NAME}}:latest
           docker tag ${{env.DOCKER_IMAGE_NAME}}:latest ${{env.DOCKER_IMAGE_NAME}}:${{ github.sha }}
 
@@ -22,4 +21,4 @@ jobs:
 workflows:
   main:
     jobs:
-      - build-and-test
+      - build
