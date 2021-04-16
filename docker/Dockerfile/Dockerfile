@@ -21,7 +21,8 @@ WORKDIR /tmp/unique_for_apex
 RUN git clone https://github.com/NVIDIA/apex.git  \
  	&& cd apex \
  	&& git checkout 5633f6 \
-	&& python3 setup.py install
+	#&& python3 setup.py install
+	&& pip3 install -v --no-cache-dir --global-option="--cpp_ext" --global-option="--cuda_ext" ./
 
 # installing fmf dependencies
 RUN	pip install scikit-image scipy numba matplotlib fire protobuf opencv-python opencv-contrib-python pybind11 vtk joblib \
