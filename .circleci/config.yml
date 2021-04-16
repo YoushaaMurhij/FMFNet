@@ -10,11 +10,7 @@ on:
 
 jobs:
   Build:
-    strategy:
-      matrix:
-        os: [ubuntu-latest]
-
-    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-latest
     env:
       DOCKER_IMAGE_NAME: x64/fmf:latest
       DOCKER_FILE_PATH: ./docker/Dockerfile
