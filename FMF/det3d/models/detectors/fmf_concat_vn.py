@@ -45,7 +45,6 @@ class FMF_Concat_VN(SingleStageDetector):
         num_voxels = example["num_voxels"]
 
         batch_size = len(num_voxels)
-
         data = dict(
             features=voxels,
             num_voxels=num_points_in_voxel,
@@ -55,9 +54,9 @@ class FMF_Concat_VN(SingleStageDetector):
         )
 
         x, _ = self.extract_feat(data)
-
+ 
         x1 = cat((x,self.tensor),1)
-        self.temp = x.detach().clone()
+        self.tensor = x.detach().clone()
         x = self.shared_conv(x1)
 
         preds = self.bbox_head(x)
