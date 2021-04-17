@@ -19,5 +19,5 @@ docker run -it -d --rm \
     -v /tmp/.X11-unix:/tmp/.X11-unix:rw \
     --name fmf \
     -v $workspace_dir/:/home/trainer/fmf:rw \
-    -v /path/to/nuScenes/dataset/:/home/trainer/fmf/FMF/data:rw \
+    -v /datasets/waymo_perception/:/home/trainer/fmf/FMF/data/Waymo:rw \
     x64/fmf:latest

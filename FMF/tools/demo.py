@@ -52,7 +52,7 @@ def convert_box(info):
     return detection 
 
 def main():
-    cfg = Config.fromfile('configs/nusc/pp/fmf_pp_cat_shared_conv.py')
+    cfg = Config.fromfile('configs/nusc/pp/nusc_centerpoint_pp_02voxel_two_pfn_10sweep_demo.py')
     
     model = build_detector(cfg.model, train_cfg=None, test_cfg=cfg.test_cfg)
 
@@ -68,7 +68,7 @@ def main():
         pin_memory=False,
     )
 
-    checkpoint = load_checkpoint(model, 'working_dir/FMF-PointPillars-Base/latest.pth', map_location="cpu")
+    checkpoint = load_checkpoint(model, 'work_dirs/centerpoint_pillar_512_demo/latest.pth', map_location="cpu")
     model.eval()
 
     model = model.cuda()

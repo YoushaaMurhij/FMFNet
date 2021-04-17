@@ -55,9 +55,8 @@ def read_sweep(sweep, painted=False):
             np.vstack((points_sweep[:3, :], np.ones(nbr_points)))
         )[:3, :]
     curr_times = sweep["time_lag"] * np.ones((1, points_sweep.shape[1]))
-    trans_mat = sweep["transform_matrix"]
 
-    return points_sweep.T, curr_times.T, trans_mat
+    return points_sweep.T, curr_times.T
 
 def read_single_waymo(obj):
     points_xyz = obj["lidars"]["points_xyz"]
@@ -97,18 +96,17 @@ def get_obj(path):
             obj = pickle.load(f)
     return obj 
 
+
 @PIPELINES.register_module
 class LoadPointCloudFromFile(object):
     def __init__(self, dataset="KittiDataset", **kwargs):
         self.type = dataset
         self.random_select = kwargs.get("random_select", False)
         self.npoints = kwargs.get("npoints", 16834)
-        self.trans_mat_old = np.random.rand(4, 4) # [[0.0] * 4] * 4 #---------------------------------------
 
     def __call__(self, res, info):
 
         res["type"] = self.type
-        
 
         if self.type == "NuScenesDataset":
 
@@ -128,13 +126,7 @@ class LoadPointCloudFromFile(object):
 
             for i in np.random.choice(len(info["sweeps"]), nsweeps - 1, replace=False):
                 sweep = info["sweeps"][i]
-
-                points_sweep, times_sweep, trans_mat = read_sweep(sweep, painted=res["painted"])  #---------------------------------------
-                # transform_matrix = np.dot( np.linalg.inv(self.trans_mat_old) , trans_mat)#---------------------------------------
-                # self.trans_mat_old = trans_mat#---------------------------------------
-                # print(transform_matrix)#---------------------------------------
-                # print("====")
-
+                points_sweep, times_sweep = read_sweep(sweep, painted=res["painted"])
                 sweep_points_list.append(points_sweep)
                 sweep_times_list.append(times_sweep)
 
@@ -144,7 +136,6 @@ class LoadPointCloudFromFile(object):
             res["lidar"]["points"] = points
             res["lidar"]["times"] = times
             res["lidar"]["combined"] = np.hstack([points, times])
-            # res["lidar"]["transform_matrix"] = transform_matrix   #---------------------------------------
         
         elif self.type == "WaymoDataset":
             path = info['path']
