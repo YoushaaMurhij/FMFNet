@@ -8,7 +8,6 @@ jobs:
    machine: true
    steps:
      - checkout
-     - uses: actions/checkout@master
      - name: Build Docker
      - run: |
           docker build . --file /docker/Dockerfile --tag  x64/fmf:latest
