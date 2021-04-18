@@ -8,7 +8,7 @@ jobs:
    machine: true
    steps:
      - checkout
-     # start proprietary DB using private Docker image
-     # with credentials stored in the UI
+     - uses: actions/checkout@master
+     - name: Build Docker
      - run: |
-          docker build . --file ./docker/Dockerfile --tag  x64/fmf:latest
+          docker build . --file /docker/Dockerfile --tag  x64/fmf:latest
