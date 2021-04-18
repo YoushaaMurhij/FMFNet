@@ -17,7 +17,6 @@ jobs:
 
     # TODO: create a action to reuse code. the problem is how to reuse docker-login.
     steps:
-      - uses: actions/checkout@master
       - name: Build Docker
         run: |
           docker build . --file ${{env.DOCKER_FILE_PATH}} --tag ${{env.DOCKER_IMAGE_NAME}}:latest
