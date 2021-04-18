@@ -54,8 +54,11 @@ class FMF_Concat_VN(SingleStageDetector):
         )
 
         x, _ = self.extract_feat(data)
- 
-        x1 = cat((x,self.tensor),1)
+
+        if x.shape == self.tensor.shape:
+            x1 = cat((x,self.tensor),1)
+        else:
+            x1 = cat((x,self.tensor[0].view(1,512,188,-1)),1)
         self.tensor = x.detach().clone()
         x = self.shared_conv(x1)
 

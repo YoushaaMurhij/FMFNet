@@ -121,7 +121,7 @@ db_sampler = dict(
 )
 train_preprocessor = dict(
     mode="train",
-    shuffle_points=True,
+    shuffle_points=False,
     global_rot_noise=[-0.3925, 0.3925],
     global_scale_noise=[0.95, 1.05],
     db_sampler=db_sampler,
