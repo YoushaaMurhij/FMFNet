@@ -1,24 +1,15 @@
-name: build
 
-on:
-  push:
-    branches:
-      - master
-  schedule:
-    # * is a special character in YAML so you have to quote this string
-    - cron:  '0 0 * * 6' # base builds run every saturday
-
+version: 2
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    env:
+ build:
+   env:
       DOCKER_IMAGE_NAME: x64/fmf:latest
       DOCKER_FILE_PATH: ./docker/Dockerfile
-
-    # TODO: create a action to reuse code. the problem is how to reuse docker-login.
-    steps:
-      - name: Build Docker
-        run: |
+   machine: true
+   steps:
+     - checkout
+     # start proprietary DB using private Docker image
+     # with credentials stored in the UI
+     - run: |
           docker build . --file ${{env.DOCKER_FILE_PATH}} --tag ${{env.DOCKER_IMAGE_NAME}}:latest
           docker tag ${{env.DOCKER_IMAGE_NAME}}:latest ${{env.DOCKER_IMAGE_NAME}}:${{ github.sha }}
-          
