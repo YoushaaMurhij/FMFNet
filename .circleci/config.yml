@@ -2,11 +2,14 @@
 version: 2
 jobs:
  build:
+   runs-on: ubuntu-latest
    env:
       DOCKER_IMAGE_NAME: x64/fmf:latest
       DOCKER_FILE_PATH: ./docker/Dockerfile
    machine: true
    steps:
-     - checkout
-     - run: |
-          docker build . --file /docker/Dockerfile --tag  x64/fmf:latest
+     - uses: actions/checkout@v2
+     - name: Build and push docker image
+       uses: docker/build-push-action@v1
+       run: |
+          docker build . --file ./docker/Dockerfile --tag  x64/fmf:latest
