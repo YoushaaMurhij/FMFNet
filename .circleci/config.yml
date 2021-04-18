@@ -11,5 +11,4 @@ jobs:
      # start proprietary DB using private Docker image
      # with credentials stored in the UI
      - run: |
-          docker build . --file ${{env.DOCKER_FILE_PATH}} --tag ${{env.DOCKER_IMAGE_NAME}}:latest
-          docker tag ${{env.DOCKER_IMAGE_NAME}}:latest ${{env.DOCKER_IMAGE_NAME}}:${{ github.sha }}
+          docker build . --file ./docker/Dockerfile --tag  x64/fmf:latest
