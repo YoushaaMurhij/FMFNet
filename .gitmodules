@@ -1,0 +1,6 @@
+[submodule "apex"]
+	path = apex
+	url = https://github.com/NVIDIA/apex.git
+[submodule "nuscenes-devkit"]
+	path = nuscenes-devkit
+	url = https://github.com/nutonomy/nuscenes-devkit.git
