@@ -27,7 +27,7 @@ RUN git clone https://github.com/NVIDIA/apex.git  \
 # installing fmf dependencies
 RUN	pip install scikit-image scipy numba matplotlib fire protobuf opencv-python opencv-contrib-python pybind11 vtk joblib \
 	easydict open3d-python terminaltables pytest-runner addict pycocotools imagecorruptions objgraph cachetools descartes \
-	motmetrics pandas Pillow pyquaternion scikit-learn Shapely tqdm requests empy filterpy
+	motmetrics pandas Pillow==8.1.1 pyquaternion scikit-learn Shapely tqdm requests empy filterpy
 RUN pip install ninja waymo-open-dataset-tf-2-2-0  
 
 
