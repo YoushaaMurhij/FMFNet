@@ -66,6 +66,8 @@ def read_single_waymo(obj):
     points_feature[:, 0] = np.tanh(points_feature[:, 0])
 
     points = np.concatenate([points_xyz, points_feature], axis=-1)
+    # np.random.shuffle(points)
+    # print("points are shuffled")
     
     return points 
 
