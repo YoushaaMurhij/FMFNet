@@ -31,7 +31,7 @@ Follow the provided steps to reproduce our results on nuScenes validation and te
 Please refer to [INSTALL](/INSTALL.md) to run the docker container for FMFNet.
 For training and testing please follow the instructions in [START](/START.md)
 ## Lisence
-FMFNet is released under MIT license (see [LICENSE](LICENSE)). It is developed based on a forked version of CenterPoint. We also incorperate a large amount of code from [det3d](https://github.com/poodarchu/Det3D), [CenterNet](https://github.com/xingyizhou/CenterNet) and [CenterTrack](https://github.com/xingyizhou/CenterTrack). Note that nuScenes dataset is under non-commercial license.
+FMFNet is released under MIT license (see [LICENSE](LICENSE)). It is developed based on a forked version of [CenterPoint](https://github.com/tianweiy/CenterPoint). We also used code from [det3d](https://github.com/poodarchu/Det3D), [CenterNet](https://github.com/xingyizhou/CenterNet) and [CenterTrack](https://github.com/xingyizhou/CenterTrack). 
 
 ## Contact
 Questions and suggestions are welcome! 
