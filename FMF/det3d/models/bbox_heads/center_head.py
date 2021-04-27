@@ -22,6 +22,8 @@ except:
 
 from det3d.core.utils.circle_nms_jit import circle_nms
 
+import wandb
+
 class FeatureAdaption(nn.Module):
     """Feature Adaption Module.
 
@@ -233,6 +235,15 @@ class CenterHead(nn.Module):
 
         logger.info("Finish CenterHead Initialization")
 
+        if self.dataset == 'waymo':
+            self.id_2_obj = {
+                0: 'VEHICLE',
+                1: 'PEDESTRIAN',
+                2: 'CYCLIST'
+            }
+        else:
+            print("This dataset is not added to wandb configs!")
+
     def forward(self, x, *kwargs):
         ret_dicts = []
 
@@ -279,7 +290,13 @@ class CenterHead(nn.Module):
 
             ret.update({'loss': loss, 'hm_loss': hm_loss.detach().cpu(), 'loc_loss':loc_loss, 'loc_loss_elem': box_loss.detach().cpu(), 'num_positive': example['mask'][task_id].float().sum()})
 
-            rets.append(ret)
+            wandb.log({
+                self.id_2_obj[task_id]+" loss": loss,
+                self.id_2_obj[task_id]+" hm_loss": hm_loss.detach().cpu(),
+                self.id_2_obj[task_id]+" loc_loss": loc_loss,
+                self.id_2_obj[task_id]+" num_positive": example['mask'][task_id].float().sum()})
+
+            rets.append(ret) 
         
         """convert batch-key to key-batch
         """
