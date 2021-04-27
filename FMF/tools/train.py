@@ -21,7 +21,9 @@ from det3d.torchie.apis import (
     set_random_seed,
     train_detector,
 )
-
+import wandb
+wandb.login()
+wandb.init(name='fmf_base_vn_1st_stage_36',tags=['WAYMO', 'Train Run'])
 
 def parse_args():
     parser = argparse.ArgumentParser(description="Train a detector")
@@ -108,7 +110,7 @@ def main():
         set_random_seed(args.seed)
 
     model = build_detector(cfg.model, train_cfg=cfg.train_cfg, test_cfg=cfg.test_cfg)
-
+    wandb.watch(model)
     datasets = [build_dataset(cfg.data.train)]
 
     if len(cfg.workflow) == 2:
