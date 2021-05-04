@@ -28,7 +28,10 @@ RUN git clone https://github.com/NVIDIA/apex.git  \
 RUN	pip install scikit-image scipy numba matplotlib fire protobuf opencv-python opencv-contrib-python pybind11 vtk joblib \
 	easydict open3d-python terminaltables pytest-runner addict pycocotools imagecorruptions objgraph cachetools descartes \
 	motmetrics pandas Pillow==8.1.2 pyquaternion scikit-learn Shapely tqdm requests empy filterpy
-RUN pip install ninja waymo-open-dataset-tf-2-2-0 tensorflow wandb
+RUN pip3 install ninja 
+RUN pip3 install tensorflow 
+RUN pip3 install waymo-open-dataset-tf-2-2-0 
+RUN pip3 install wandb
 
 
 
