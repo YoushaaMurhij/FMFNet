@@ -40,6 +40,3 @@ Questions and suggestions are welcome!
 
 Youshaa Murhij [yosha.morheg@phystech.edu](mailto:yosha.morheg@phystech.edu) 
 
-### TODO
-- [] add results on Waymo dataset
-- []

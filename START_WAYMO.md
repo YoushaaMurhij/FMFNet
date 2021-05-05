@@ -66,9 +66,5 @@ CUDA_VISIBLE_DEVICES=1 python tools/train.py /home/trainer/fmf/FMF/configs/waymo
 python tools/dist_test.py /home/trainer/fmf/FMF/configs/waymo/voxelnet/waymo_fmf_voxelnet_3x.py --work_dir waymo_exp/FMF-VoxelNet-Base --checkpoint waymo_exp/FMF-VoxelNet-Base/epoch_15.pth  --speed_test --gpus 1
 ```
 
-```bash
-python tools/dist_test.py /home/josh94mur/centerpoint/CenterPoint/configs/nusc/pp/config.py --work_dir working_dir/orginal+pp+cat+shared_conv_testset --checkpoint working_dir/orginal+pp+cat+shared_conv/latest.pth  --speed_test --testset --gpus 2
-```
-
 ## Tracking
 To be updated later!
