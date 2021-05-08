@@ -4,3 +4,6 @@
 [submodule "nuscenes-devkit"]
 	path = nuscenes-devkit
 	url = https://github.com/nutonomy/nuscenes-devkit.git
+[submodule "waymo-open-dataset"]
+	path = waymo-open-dataset
+	url = https://github.com/waymo-research/waymo-open-dataset.git
