@@ -52,10 +52,15 @@ python tools/create_data.py waymo_data_prep --root_path=data/Waymo --split val -
 python tools/create_data.py waymo_data_prep --root_path=data/Waymo --split test --nsweeps=2
 ```
 ## Training on WAYMO dataset:
-For distributed training use:
+For 1st stage distributed training use:
 ```bash
 python -m torch.distributed.launch --nproc_per_node=2 ./tools/train.py /home/trainer/fmf/FMF/configs/waymo/voxelnet/waymo_fmf_voxelnet_3x.py --work_dir waymo_exp/FMF-VoxelNet-Base --resume_from waymo_exp/FMF-VoxelNet-Base/latest.pth
 ```
+For 2nd stage distributed training use:
+```bash
+python -m torch.distributed.launch --nproc_per_node=2 ./tools/train.py /home/trainer/fmf/FMF/configs/waymo/voxelnet/two_stage/waymo_fmf_voxelnet_two_stage_bev_5point_ft_6epoch_freeze.py --work_dir waymo_exp/FMF-VoxelNet-Base-2nd-Stage
+```
+
 For single device training use:
 ```bash
 CUDA_VISIBLE_DEVICES=1 python tools/train.py /home/trainer/fmf/FMF/configs/waymo/voxelnet/waymo_fmf_voxelnet_3x.py --work_dir waymo_exp/FMF-VoxelNet-Base --resume_from waymo_exp/FMF-VoxelNet-Base/latest.pth
@@ -63,7 +68,7 @@ CUDA_VISIBLE_DEVICES=1 python tools/train.py /home/trainer/fmf/FMF/configs/waymo
   
 ## Evaluating/Testing on WAYMO dataset:
 ```bash
-python tools/dist_test.py /home/trainer/fmf/FMF/configs/waymo/voxelnet/waymo_fmf_voxelnet_3x.py --work_dir waymo_exp/FMF-VoxelNet-Base --checkpoint waymo_exp/FMF-VoxelNet-Base/epoch_15.pth  --speed_test --gpus 1
+python tools/dist_test.py /home/trainer/fmf/FMF/configs/waymo/voxelnet/waymo_fmf_voxelnet_3x.py --work_dir waymo_exp/FMF-VoxelNet-Base --checkpoint waymo_exp/FMF-VoxelNet-Base/epoch_36.pth  --speed_test --gpus 1
 ```
 
 ## Tracking
