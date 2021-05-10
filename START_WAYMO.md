@@ -66,9 +66,14 @@ For single device training use:
 CUDA_VISIBLE_DEVICES=1 python tools/train.py /home/trainer/fmf/FMF/configs/waymo/voxelnet/waymo_fmf_voxelnet_3x.py --work_dir waymo_exp/FMF-VoxelNet-Base --resume_from waymo_exp/FMF-VoxelNet-Base/latest.pth
 ```
   
-## Evaluating/Testing on WAYMO dataset:
+## Validation on WAYMO dataset:
 ```bash
 python tools/dist_test.py /home/trainer/fmf/FMF/configs/waymo/voxelnet/waymo_fmf_voxelnet_3x.py --work_dir waymo_exp/FMF-VoxelNet-Base --checkpoint waymo_exp/FMF-VoxelNet-Base/epoch_36.pth  --speed_test --gpus 1
+```
+  
+## Testing on WAYMO dataset:
+```bash
+python tools/dist_test.py /home/trainer/fmf/FMF/configs/waymo/voxelnet/waymo_fmf_voxelnet_3x.py --work_dir waymo_exp/FMF-VoxelNet-Base --checkpoint waymo_exp/FMF-VoxelNet-Base/epoch_36.pth  --speed_test --testset --gpus 1
 ```
 
 ## Tracking
