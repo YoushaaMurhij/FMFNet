@@ -5,7 +5,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update  \
 	&& apt-get install -y --no-install-recommends build-essential git ca-certificates python3-pip libboost-all-dev ffmpeg libsm6 libxext6   \
 	&& rm -rf /var/lib/apt/lists/*
-
+RUN python3 -m pip install --upgrade pip 
 RUN python3 -m pip install wheel pyyaml numpy ipython
 ENV PATH=/usr/local/nvidia/bin:/usr/local/cuda/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
