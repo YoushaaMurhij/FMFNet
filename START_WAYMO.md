@@ -70,7 +70,9 @@ CUDA_VISIBLE_DEVICES=1 python tools/train.py /home/trainer/fmf/FMF/configs/waymo
 ```bash
 python tools/dist_test.py /home/trainer/fmf/FMF/configs/waymo/voxelnet/waymo_fmf_voxelnet_3x.py --work_dir waymo_exp/FMF-VoxelNet-Base --checkpoint waymo_exp/FMF-VoxelNet-Base/epoch_36.pth  --speed_test --gpus 1
 ```
-  
+ ```bash
+python tools/dist_test.py /home/trainer/fmf/FMF/configs/waymo/voxelnet/two_stage/waymo_fmf_voxelnet_two_stage_bev_5point_ft_6epoch_freeze.py --work_dir waymo_exp/FMF-VoxelNet-Base-2nd-Stage --checkpoint waymo_exp/FMF-VoxelNet-Base-2nd-Stage/epoch_6.pth  --speed_test --gpus 1
+``` 
 ## Testing on WAYMO dataset:
 ```bash
 python tools/dist_test.py /home/trainer/fmf/FMF/configs/waymo/voxelnet/waymo_fmf_voxelnet_3x.py --work_dir waymo_exp/FMF-VoxelNet-Base --checkpoint waymo_exp/FMF-VoxelNet-Base/epoch_36.pth  --speed_test --testset --gpus 1
