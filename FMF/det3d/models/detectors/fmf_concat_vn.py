@@ -1,7 +1,6 @@
 from ..registry import DETECTORS
 from .single_stage import SingleStageDetector
 from det3d.torchie.trainer import load_checkpoint
-from torch import nn, empty, cat
 from copy import deepcopy 
 
 @DETECTORS.register_module
@@ -19,14 +18,6 @@ class FMF_Concat_VN(SingleStageDetector):
         super(FMF_Concat_VN, self).__init__(
             reader, backbone, neck, bbox_head, train_cfg, test_cfg, pretrained
         )
-        self.tensor = empty(4, bbox_head.in_channels, 188, 188).cuda()   # TODO don't hardcore Batch_size 
-        self.shared_conv = nn.Sequential(
-            nn.Conv2d(2*bbox_head.in_channels, bbox_head.in_channels,
-            kernel_size=3, padding=1, bias=True),
-            nn.BatchNorm2d(bbox_head.in_channels),
-            nn.ReLU(inplace=False).cuda()
-        )
-
         
     def extract_feat(self, data):
         input_features = self.reader(data["features"], data["num_voxels"])
@@ -55,14 +46,6 @@ class FMF_Concat_VN(SingleStageDetector):
 
         x, _ = self.extract_feat(data)
 
-        if x.shape == self.tensor.shape:
-            x1 = cat((x,self.tensor),1)
-        else:
-            x1 = cat((x[0].view(1,512,188,-1),self.tensor[0].view(1,512,188,-1)),1)
-            
-        self.tensor = x.detach().clone()
-        x = self.shared_conv(x1)
-
         preds = self.bbox_head(x)
 
         if return_loss:
@@ -89,14 +72,15 @@ class FMF_Concat_VN(SingleStageDetector):
         x, voxel_feature = self.extract_feat(data)
         bev_feature = x 
 
-        if x.shape == self.tensor.shape:
-            x1 = cat((x,self.tensor),1)
-        else:
-            x1 = cat((x[0].view(1,512,188,-1),self.tensor[0].view(1,512,188,-1)),1)
+        # if x.shape == self.tensor.shape:
+        #     x1 = cat((x,self.tensor),1)
+        # else:
+        #     x1 = cat((x[0].view(1,512,188,-1),self.tensor[0].view(1,512,188,-1)),1)
             
-        self.tensor = x.detach().clone()
+        # self.tensor = x.detach().clone()
         
-        x = self.shared_conv(x1)
+        # x = self.shared_conv(x1)
+
         preds = self.bbox_head(x)
 
         # manual deepcopy ...
