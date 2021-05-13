@@ -93,10 +93,9 @@ class FMF_Concat_VN(SingleStageDetector):
             x1 = cat((x,self.tensor),1)
         else:
             x1 = cat((x[0].view(1,512,188,-1),self.tensor[0].view(1,512,188,-1)),1)
-            
         self.tensor = x.detach().clone()
-        
         x = self.shared_conv(x1)
+
         preds = self.bbox_head(x)
 
         # manual deepcopy ...

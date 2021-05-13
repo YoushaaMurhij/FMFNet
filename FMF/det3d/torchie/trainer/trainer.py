@@ -29,7 +29,8 @@ from .utils import (
     obj_from_dict,
     synchronize,
 )
-
+import wandb
+import os 
 
 def example_to_device(example, device, non_blocking=False) -> dict:
     example_torch = {}
@@ -347,6 +348,9 @@ class Trainer(object):
         linkpath = osp.join(out_dir, "latest.pth")
         optimizer = self.optimizer if save_optimizer else None
         save_checkpoint(self.model, filepath, optimizer=optimizer, meta=meta)
+        # save to wandb
+        wandb.save(os.path.join(wandb.run.dir, filename))
+
         # Use relative symlink
         torchie.symlink(filename, linkpath)
 

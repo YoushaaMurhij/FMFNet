@@ -23,7 +23,7 @@ from det3d.torchie.apis import (
 )
 import wandb
 wandb.login()
-wandb.init(name='fmf_base_vn_2nd_stage_6',tags=['WAYMO', 'Train Run'])
+wandb.init(name='fmf_base_vn_2',tags=['WAYMO', 'Train Run'])
 
 def parse_args():
     parser = argparse.ArgumentParser(description="Train a detector")
@@ -69,6 +69,8 @@ def main():
     # np.random.seed(0)
 
     args = parse_args()
+
+    wandb.config.update(args)
 
     cfg = Config.fromfile(args.config)
     cfg.local_rank = args.local_rank
