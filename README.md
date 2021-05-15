@@ -1,4 +1,5 @@
-# FMFNet: Improve the 3D Object Detection and Tracking via Feature Map Flow [![Build Status](https://travis-ci.com/YoushaaMurhij/FMFNet.svg?token=XBb5YnxZpW68F3NbovBH&branch=main)](https://travis-ci.com/YoushaaMurhij/FMFNet)
+# FMFNet: Improve the 3D Object Detection and Tracking via Feature Map Flow ![workflow](https://github.com/github/docs/actions/workflows/main.yml/badge.svg)
+
 ![img|center](./demo.GIF)
 
 
