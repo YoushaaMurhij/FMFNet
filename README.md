@@ -32,7 +32,7 @@ Follow the provided steps to reproduce our results on nuScenes validation and te
 
 
 Please refer to [INSTALL](/INSTALL.md) to run the docker container for FMFNet.
-For training and testing on nuScenes, please follow the instructions in [START](/START.md)
+For training and testing on nuScenes, please follow the instructions in [START](/START.md).
 For WAYMO dataset, you can check [START_WAYMO](/START_WAYMO.md)
 
 ## Lisence
