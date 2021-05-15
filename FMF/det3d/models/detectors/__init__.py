@@ -9,6 +9,7 @@ from .fmf_concat_vn import FMF_Concat_VN
 __all__ = [
     "BaseDetector",
     "SingleStageDetector",
+    "TwoStageDetector",
     "VoxelNet",
     "PointPillars",
     "FMF_Concat_PP",

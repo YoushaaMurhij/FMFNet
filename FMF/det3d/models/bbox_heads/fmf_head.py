@@ -209,12 +209,12 @@ class FMFHead(nn.Module):
         )
 
         # FMF shared conv
-        self.tensor = empty(4, self.in_channels, 188, 188).cuda()   # TODO don't hardcore Batch_size 
+        self.tensor = empty(4, self.in_channels, 188, 188)   # TODO don't hardcore Batch_size 
         self.fmf_shared_conv = nn.Sequential(
             nn.Conv2d(2*self.in_channels, self.in_channels,
             kernel_size=3, padding=1, bias=True),
             nn.BatchNorm2d(self.in_channels),
-            nn.ReLU(inplace=False).cuda()
+            nn.ReLU(inplace=False)
         )
    
         # a shared convolution 
