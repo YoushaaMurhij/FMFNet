@@ -1,4 +1,6 @@
-# FMFNet: Improve the 3D Object Detection and Tracking via Feature Map Flow ![workflow](https://github.com/github/docs/actions/workflows/main.yml/badge.svg)
+# FMFNet: Improve the 3D Object Detection and Tracking via Feature Map Flow ![workflow](https://github.com/github/docs/actions/workflows/main.yml/badge.svg) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
+
 
 ![img|center](./demo.GIF)
 
