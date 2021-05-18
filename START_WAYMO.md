@@ -15,15 +15,15 @@ export PYTHONPATH="${PYTHONPATH}:/home/trainer/fmf/nuscenes-devkit/python-sdk"
 ## Prepare the dataset
 ### Prepare train set 
 ```bash
-CUDA_VISIBLE_DEVICES=-1 python det3d/datasets/waymo/waymo_converter.py --record_path '/datasets/waymo_perception/tfrecord_training/*.tfrecord'  --root_path '/datasets/waymo_perception/train/'
+CUDA_VISIBLE_DEVICES=-1 python det3d/datasets/waymo/waymo_converter.py --record_path '/home/trainer/fmf/FMF/data/Waymo/tfrecord_training/*.tfrecord'  --root_path '/home/trainer/fmf/FMF/data/Waymo/train/'
 ```
 ### Prepare validation set 
 ```bash
-CUDA_VISIBLE_DEVICES=-1 python det3d/datasets/waymo/waymo_converter.py --record_path '/home/trainer/fmf/FMF/data/Waymo/tfrecord_validation/*.tfrecord'  --root_path '/datasets/waymo_perception/val/'
+CUDA_VISIBLE_DEVICES=-1 python det3d/datasets/waymo/waymo_converter.py --record_path '/home/trainer/fmf/FMF/data/Waymo/tfrecord_validation/*.tfrecord'  --root_path '/home/trainer/fmf/FMF/data/Waymo/val/'
 ```
 ### Prepare testing set 
 ```bash
-CUDA_VISIBLE_DEVICES=-1 python det3d/datasets/waymo/waymo_converter.py --record_path '/datasets/waymo_perception/tfrecord_testing/*.tfrecord'  --root_path '/datasets/waymo_perception/test/'
+CUDA_VISIBLE_DEVICES=-1 python det3d/datasets/waymo/waymo_converter.py --record_path '/home/trainer/fmf/FMF/data/Waymo/tfrecord_testing/*.tfrecord'  --root_path '/home/trainer/fmf/FMF/data/Waymo/test/'
 ```
 ## Create info files
 ### One Sweep Infos 
