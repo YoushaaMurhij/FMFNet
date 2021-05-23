@@ -19,7 +19,7 @@ model = dict(
     type='TwoStageDetector',
     first_stage_cfg=dict(
         type="FMF_Concat_VN",
-        pretrained='waymo_exp/FMF-VoxelNet-Base/epoch_36.pth',
+        pretrained='waymo_exp/FMF-VoxelNet-Base-Head/epoch_36.pth',
         reader=dict(
             type="VoxelFeatureExtractorV3",
             num_input_features=5
@@ -38,7 +38,7 @@ model = dict(
             logger=logging.getLogger("RPN"),
         ),
         bbox_head=dict(
-            type="CenterHead",
+            type="FMFHead",
             in_channels=sum([256, 256]),
             tasks=tasks,
             dataset='waymo',

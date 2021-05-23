@@ -349,7 +349,7 @@ class Trainer(object):
         optimizer = self.optimizer if save_optimizer else None
         save_checkpoint(self.model, filepath, optimizer=optimizer, meta=meta)
         # save to wandb
-        wandb.save(os.path.join(wandb.run.dir, filename))
+        wandb.save(os.path.join(wandb.run.dir, filepath))
 
         # Use relative symlink
         torchie.symlink(filename, linkpath)

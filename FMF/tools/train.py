@@ -23,7 +23,7 @@ from det3d.torchie.apis import (
 )
 import wandb
 wandb.login()
-wandb.init(name='fmf_base_vn_2',tags=['WAYMO', 'Train Run'])
+wandb.init(name='fmf_base_vn',tags=['WAYMO', 'Train Run'])
 
 def parse_args():
     parser = argparse.ArgumentParser(description="Train a detector")
