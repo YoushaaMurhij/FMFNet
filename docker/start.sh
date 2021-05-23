@@ -21,3 +21,9 @@ docker run -it -d --rm \
     -v $workspace_dir/:/home/trainer/fmf:rw \
     -v /media/josh/HDD-1TB/Waymo/:/home/trainer/fmf/FMF/data/Waymo:rw \
     x64/fmf:latest
+
+docker exec -it fmf \
+    /bin/bash -c "export PYTHONPATH=\"${PYTHONPATH}:/home/trainer/fmf/FMF\";
+    export PYTHONPATH=\"${PYTHONPATH}:/home/trainer/fmf/nuscenes-devkit/python-sdk\";
+    cd /home/trainer/fmf/FMF;
+    bash setup.sh;"
