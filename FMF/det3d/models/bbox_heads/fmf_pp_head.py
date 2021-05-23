@@ -209,7 +209,7 @@ class FMFPPHead(nn.Module):
         )
 
         # FMF shared conv
-        self.tensor = empty(4, self.in_channels, 128, 128).cuda()   # TODO don't hardcore Batch_size 
+        self.tensor = empty(4, self.in_channels, 468, 468).cuda()   # TODO don't hardcore Batch_size 
         self.fmf_shared_conv = nn.Sequential(
             nn.Conv2d(2*self.in_channels, self.in_channels,
             kernel_size=3, padding=1, bias=True),
@@ -248,10 +248,7 @@ class FMFPPHead(nn.Module):
     def forward(self, x, *kwargs):
         ret_dicts = []
 
-        if x.shape == self.tensor.shape:
-            x1 = cat((x,self.tensor),1)
-        else:
-            x1 = cat((x[0].view(1,384,128,-1),self.tensor[0].view(1,384,128,-1)),1)
+        x1 = cat((x,self.tensor),1)
             
         self.tensor = x.detach().clone()
         x = self.fmf_shared_conv(x1)
