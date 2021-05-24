@@ -35,7 +35,7 @@ model = dict(
         logger=logging.getLogger("RPN"),
     ),
     bbox_head=dict(
-        type="CFMFrHead",
+        type="FMFHead",
         in_channels=sum([256, 256]),
         tasks=tasks,
         dataset='waymo',
