@@ -248,9 +248,13 @@ class FMFPPHead(nn.Module):
     def forward(self, x, *kwargs):
         ret_dicts = []
 
-        x1 = cat((x,self.tensor),1)
+        # x1 = cat((x,self.tensor),1)
+        if x.shape == self.tensor.shape:
+            x1 = cat((x,self.tensor),1)
+        else:
+            x1 = cat((x[0].view(1,384,468,-1),self.tensor[0].view(1,384,468,-1)),1)
             
-        self.tensor = x.detach().clone()
+        self.tensor = x.clone()
         x = self.fmf_shared_conv(x1)
 
         x = self.shared_conv(x)
