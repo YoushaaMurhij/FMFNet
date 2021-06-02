@@ -50,7 +50,7 @@ class DistOptimizerHook(OptimizerHook):
 
     def after_train_iter(self, runner):
         runner.optimizer.zero_grad()
-        runner.outputs["loss"].backward(retain_graph=True)
+        runner.outputs["loss"].backward()
         allreduce_grads(runner.model.parameters(), self.coalesce, self.bucket_size_mb)
         if self.grad_clip is not None:
             self.clip_grads(runner.model.parameters())

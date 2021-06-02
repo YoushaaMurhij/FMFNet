@@ -254,7 +254,7 @@ class FMFPPHead(nn.Module):
         else:
             x1 = cat((x[0].view(1,384,468,-1),self.tensor[0].view(1,384,468,-1)),1)
             
-        self.tensor = x.clone()
+        self.tensor = x.detach().clone()
         x = self.fmf_shared_conv(x1)
 
         x = self.shared_conv(x)
