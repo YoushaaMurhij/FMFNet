@@ -128,4 +128,5 @@ dmypy.json
 # Pyre type checker
 .pyre/
 FMF/waymo_exp/
+FMF/cp_exp/
 FMF/wandb/
