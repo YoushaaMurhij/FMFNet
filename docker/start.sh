@@ -19,7 +19,7 @@ docker run -it -d --rm \
     -v /tmp/.X11-unix:/tmp/.X11-unix:rw \
     --name fmf \
     -v $workspace_dir/:/home/trainer/fmf:rw \
-    -v /media/josh/HDD-1TB/Waymo/:/home/trainer/fmf/FMF/data/Waymo:rw \
+    -v /media/josh/HDD-1TB1/Waymo/:/home/trainer/fmf/FMF/data/Waymo:rw \
     x64/fmf:latest
 
 docker exec -it fmf \

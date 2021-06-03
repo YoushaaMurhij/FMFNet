@@ -68,7 +68,7 @@ CUDA_VISIBLE_DEVICES=1 python tools/train.py /home/trainer/fmf/FMF/configs/waymo
   
 ## Validation on WAYMO dataset:
 ```bash
-python tools/dist_test.py /home/trainer/fmf/FMF/configs/waymo/voxelnet/waymo_fmf_voxelnet_3x.py --work_dir waymo_exp/FMF-VoxelNet-Base --checkpoint waymo_exp/FMF-VoxelNet-Base/epoch_36.pth  --speed_test --gpus 1
+python tools/dist_test.py /home/trainer/fmf/FMF/configs/waymo/pp/waymo_fmf_pp_two_pfn_stride1_3x.py --work_dir waymo_exp/FMF-PointPillars-Base --checkpoint waymo_exp/FMF-PointPillars-Base/epoch_9.pth  --speed_test --gpus 1
 ```
  ```bash
 python tools/dist_test.py /home/trainer/fmf/FMF/configs/waymo/voxelnet/two_stage/waymo_fmf_voxelnet_two_stage_bev_5point_ft_6epoch_freeze.py --work_dir waymo_exp/FMF-VoxelNet-Base-2nd-Stage --checkpoint waymo_exp/FMF-VoxelNet-Base-2nd-Stage/epoch_6.pth  --speed_test --gpus 1

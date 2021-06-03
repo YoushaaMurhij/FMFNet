@@ -210,16 +210,16 @@ class FMFPPHead(nn.Module):
 
         # FMF shared conv
         self.tensor = empty(4, self.in_channels, 468, 468).cuda()   # TODO don't hardcore Batch_size 
-        self.fmf_shared_conv = nn.Sequential(
-            nn.Conv2d(2*self.in_channels, self.in_channels,
-            kernel_size=3, padding=1, bias=True),
-            nn.BatchNorm2d(self.in_channels),
-            nn.ReLU(inplace=False)
-        )
+        # self.fmf_shared_conv = nn.Sequential(
+        #     nn.Conv2d(2*self.in_channels, self.in_channels,
+        #     kernel_size=3, padding=1, bias=True),
+        #     nn.BatchNorm2d(self.in_channels),
+        #     nn.ReLU(inplace=False)
+        # )
    
         # a shared convolution 
         self.shared_conv = nn.Sequential(
-            nn.Conv2d(in_channels, share_conv_channel,
+            nn.Conv2d(2*in_channels, share_conv_channel,
             kernel_size=3, padding=1, bias=True),
             nn.BatchNorm2d(share_conv_channel),
             nn.ReLU(inplace=True)
@@ -252,12 +252,12 @@ class FMFPPHead(nn.Module):
         if x.shape == self.tensor.shape:
             x1 = cat((x,self.tensor),1)
         else:
-            x1 = cat((x[0].view(1,384,468,-1),self.tensor[0].view(1,384,468,-1)),1)
+            x1 = cat((x[0].view(1,self.in_channels,468,-1),self.tensor[0].view(1,self.in_channels,468,-1)),1)
             
         self.tensor = x.detach().clone()
-        x = self.fmf_shared_conv(x1)
+        # x = self.fmf_shared_conv(x1)
 
-        x = self.shared_conv(x)
+        x = self.shared_conv(x1)
 
         for task in self.tasks:
             ret_dicts.append(task(x))
