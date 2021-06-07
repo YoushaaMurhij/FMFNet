@@ -291,7 +291,9 @@ class Trainer(object):
     def current_lr(self):
         if self.optimizer is None:
             raise RuntimeError("lr is not applicable because optimizer does not exist.")
-        return [group["lr"] for group in self.optimizer.param_groups]
+        lr_g = [group["lr"] for group in self.optimizer.param_groups]
+        wandb.log({'learning rate': lr_g[0]})
+        return lr_g
 
     def register_hook(self, hook, priority="NORMAL"):
         """Register a hook into the hook list.
