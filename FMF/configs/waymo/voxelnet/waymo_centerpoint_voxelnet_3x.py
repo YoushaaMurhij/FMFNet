@@ -1,5 +1,6 @@
 import itertools
 import logging
+
 from det3d.utils.config_tool import get_downsample_factor
 
 tasks = [
@@ -15,30 +16,27 @@ target_assigner = dict(
 
 # model settings
 model = dict(
-    type="FMF_Concat_PP",
+    type="VoxelNet",
     pretrained=None,
     reader=dict(
-        type="PillarFeatureNet",
-        num_filters=[64, 64],
+        type="VoxelFeatureExtractorV3",
         num_input_features=5,
-        with_distance=False,
-        voxel_size=(0.32, 0.32, 6.0),
-        pc_range=(-74.88, -74.88, -2, 74.88, 74.88, 4.0),
     ),
-    backbone=dict(type="PointPillarsScatter", ds_factor=1),
+    backbone=dict(
+        type="SpMiddleResNetFHD", num_input_features=5, ds_factor=8),
     neck=dict(
         type="RPN",
-        layer_nums=[3, 5, 5],
-        ds_layer_strides=[1, 2, 2],
-        ds_num_filters=[64, 128, 256],
-        us_layer_strides=[1, 2, 4],
-        us_num_filters=[128, 128, 128],
-        num_input_features=64,
+        layer_nums=[5, 5],
+        ds_layer_strides=[1, 2],
+        ds_num_filters=[128, 256],
+        us_layer_strides=[1, 2],
+        us_num_filters=[256, 256],
+        num_input_features=256,
         logger=logging.getLogger("RPN"),
     ),
     bbox_head=dict(
-        type="FMFPPHead",
-        in_channels=128*3,
+        type="CenterHead",
+        in_channels=sum([256, 256]),
         tasks=tasks,
         dataset='waymo',
         weight=2,
@@ -59,17 +57,20 @@ assigner = dict(
 
 train_cfg = dict(assigner=assigner)
 
+
 test_cfg = dict(
     post_center_limit_range=[-80, -80, -10.0, 80, 80, 10.0],
     nms=dict(
+        use_rotate_nms=True,
+        use_multi_class_nms=False,
         nms_pre_max_size=4096,
         nms_post_max_size=500,
         nms_iou_threshold=0.7,
     ),
     score_threshold=0.1,
-    pc_range=[-74.88, -74.88],
+    pc_range=[-75.2, -75.2],
     out_size_factor=get_downsample_factor(model),
-    voxel_size=[0.32, 0.32]
+    voxel_size=[0.1, 0.1],
 )
 
 
@@ -116,10 +117,10 @@ val_preprocessor = dict(
 )
 
 voxel_generator = dict(
-    range=[-74.88, -74.88, -2, 74.88, 74.88, 4.0],
-    voxel_size=[0.32, 0.32, 6.0],
-    max_points_in_voxel=20,
-    max_voxel_num=[32000, 60000], # we only use non-empty voxels. this will be much smaller than max_voxel_num
+    range=[-75.2, -75.2, -2, 75.2, 75.2, 4],
+    voxel_size=[0.1, 0.1, 0.15],
+    max_points_in_voxel=5,
+    max_voxel_num=[150000, 200000],
 )
 
 train_pipeline = [
@@ -141,11 +142,11 @@ test_pipeline = [
 
 train_anno = "data/Waymo/infos_train_01sweeps_filter_zero_gt.pkl"
 val_anno = "data/Waymo/infos_val_01sweeps_filter_zero_gt.pkl"
-test_anno = "data/Waymo/infos_test_01sweeps_filter_zero_gt.pkl"
+test_anno = None
 
 data = dict(
     samples_per_gpu=4,
-    workers_per_gpu=8,
+    workers_per_gpu=4,
     train=dict(
         type=dataset_type,
         root_path=data_root,

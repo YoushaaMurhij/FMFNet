@@ -207,15 +207,7 @@ class FMFPPHead(nn.Module):
         logger.info(
             f"num_classes: {num_classes}"
         )
-
-        # FMF shared conv
-        self.tensor = empty(4, self.in_channels, 468, 468).cuda()   # TODO don't hardcore Batch_size 
-        # self.fmf_shared_conv = nn.Sequential(
-        #     nn.Conv2d(2*self.in_channels, self.in_channels,
-        #     kernel_size=3, padding=1, bias=True),
-        #     nn.BatchNorm2d(self.in_channels),
-        #     nn.ReLU(inplace=False)
-        # )
+        self.share_conv_channel = share_conv_channel
    
         # a shared convolution 
         self.shared_conv = nn.Sequential(
@@ -223,6 +215,14 @@ class FMFPPHead(nn.Module):
             kernel_size=3, padding=1, bias=True),
             nn.BatchNorm2d(share_conv_channel),
             nn.ReLU(inplace=True)
+        )
+        # FMF shared conv
+        self.tensor = empty(1, self.share_conv_channel, 468, 468).cuda().half()   # TODO don't hardcore Batch_size 
+        self.fmf_shared_conv = nn.Sequential(
+            nn.Conv2d(2*self.share_conv_channel, self.share_conv_channel,
+            kernel_size=3, padding=1, bias=True),
+            nn.BatchNorm2d(self.share_conv_channel),
+            nn.ReLU(inplace=False)
         )
 
         self.tasks = nn.ModuleList()
@@ -248,17 +248,16 @@ class FMFPPHead(nn.Module):
     def forward(self, x, *kwargs):
         ret_dicts = []
 
-        # x1 = cat((x,self.tensor),1)
-        x_mean = torch.mean(torch.stack([x, self.tensor]), dim=0)
-        # if x.shape == self.tensor.shape:
-        #     x1 = cat((x,self.tensor),1)
-        # else:
-        #     x1 = cat((x[0].view(1,self.in_channels,468,-1),self.tensor[0].view(1,self.in_channels,468,-1)),1)
-            
-        self.tensor = x.detach().clone()
-        # x = self.fmf_shared_conv(x1)
+        x = self.shared_conv(x)
+    
+        if x.shape == self.tensor.shape:
+            x_fmf = cat((x,self.tensor),1)
+        else:
+            x_fmf = cat((x[0].view(1,self.share_conv_channel,468,-1),self.tensor[0].view(1,self.share_conv_channel,468,-1)),1)
 
-        x = self.shared_conv(x_mean)
+        self.tensor = x.detach().clone()
+
+        x = self.fmf_shared_conv(x_fmf)
 
         for task in self.tasks:
             ret_dicts.append(task(x))

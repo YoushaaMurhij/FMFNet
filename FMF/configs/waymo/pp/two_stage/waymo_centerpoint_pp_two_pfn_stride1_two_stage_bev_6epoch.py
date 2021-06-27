@@ -19,7 +19,7 @@ model = dict(
     type='TwoStageDetector',
     first_stage_cfg=dict(
         type="PointPillars",
-        pretrained='work_dirs/waymo_centerpoint_pp_two_pfn_stride1_3x/epoch_36.pth',
+        pretrained='./waymo_exp/CenterPoint-PP/epoch_36.pth',
         reader=dict(
             type="PillarFeatureNet",
             num_filters=[64, 64],
@@ -192,7 +192,7 @@ test_pipeline = [
 
 train_anno = "data/Waymo/infos_train_01sweeps_filter_zero_gt.pkl"
 val_anno = "data/Waymo/infos_val_01sweeps_filter_zero_gt.pkl"
-test_anno = None
+test_anno = "data/Waymo/infos_test_01sweeps_filter_zero_gt.pkl"
 
 data = dict(
     samples_per_gpu=4,
