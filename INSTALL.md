@@ -10,16 +10,16 @@ cd FMFNet/docker
 ```
 ### build FMF docker image:
 ```bash
-./docker_build.sh
+./build.sh
 ```
 ### Start FMF docker container:
-Open docker_start.sh and specify the correct path to nuScenes Dataset and in run this command in terminal:
+Open start.sh and specify the correct path to nuScenes/Waymo Dataset and in run this command in terminal:
 ```bash
-./docker_start.sh
+./start.sh
 ```
 ### Enter the container:
 ```bash
-./docker_into.sh
+./into.sh
 ```
 
 ## Now INSIDE the running container:
