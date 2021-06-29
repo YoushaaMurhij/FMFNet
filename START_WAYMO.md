@@ -5,7 +5,7 @@
        ├── tfrecord_validation   
        ├── tfrecord_testing 
 ```
-Remember to change the path in [docker_start.sh](https://github.com/YoushaaMurhij/FMFNet/blob/main/docker/docker_start.sh) to the WAYMO_DATASET_PATH path above.
+Remember to change the path in [start.sh](https://github.com/YoushaaMurhij/FMFNet/blob/main/docker/start.sh) to the WAYMO_DATASET_PATH path above.
 
 ```bash
 export PYTHONPATH="${PYTHONPATH}:/home/trainer/fmf/FMF"
