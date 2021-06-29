@@ -47,6 +47,7 @@ class VoxelNet(SingleStageDetector):
         )
 
         x, _ = self.extract_feat(data)
+        print(x.shape)
         preds = self.bbox_head(x)
 
         if return_loss:
