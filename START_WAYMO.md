@@ -80,3 +80,8 @@ python tools/dist_test.py /home/trainer/fmf/FMF/configs/waymo/voxelnet/waymo_fmf
 
 ## Tracking
 To be updated later!
+
+
+export CUDA_VISIBLE_DEVICES='0,1,2,3' # specify the GPU devices numbers for training
+export num_gpus=4 # the number of used GPU devices
+python -m torch.distributed.launch --nproc_per_node=4 ./tools/train.py /home/trainer/fmf/FMF/configs/waymo/voxelnet/waymo_centerpoint_voxelnet_3x_no_neck.py --work_dir waymo_exp/CP-VoxelNet-No-Neck-3Sweeps

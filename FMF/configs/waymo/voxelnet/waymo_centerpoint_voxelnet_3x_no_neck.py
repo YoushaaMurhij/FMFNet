@@ -20,13 +20,23 @@ model = dict(
     pretrained=None,
     reader=dict(
         type="VoxelFeatureExtractorV3",
-        num_input_features=5,
+        num_input_features=6,
     ),
     backbone=dict(
-        type="SpMiddleResNetFHD", num_input_features=5, ds_factor=8),
+        type="SpMiddleResNetFHD", num_input_features=6, ds_factor=8),
+    neck=dict(
+        type="RPN",
+        layer_nums=[5, 5],
+        ds_layer_strides=[1, 2],
+        ds_num_filters=[128, 256],
+        us_layer_strides=[1, 2],
+        us_num_filters=[256, 256],
+        num_input_features=256,
+        logger=logging.getLogger("RPN"),
+    ),
     bbox_head=dict(
         type="CenterHead",
-        in_channels=sum([256, 256]),
+        in_channels=sum([256]),
         tasks=tasks,
         dataset='waymo',
         weight=2,
@@ -66,13 +76,13 @@ test_cfg = dict(
 
 # dataset settings
 dataset_type = "WaymoDataset"
-nsweeps = 1
+nsweeps = 3
 data_root = "data/Waymo"
 
 db_sampler = dict(
     type="GT-AUG",
     enable=False,
-    db_info_path="data/Waymo/dbinfos_train_1sweeps_withvelo.pkl",
+    db_info_path="data/Waymo/dbinfos_train_3sweeps_withvelo.pkl",
     sample_groups=[
         dict(VEHICLE=15),
         dict(PEDESTRIAN=10),
@@ -130,13 +140,13 @@ test_pipeline = [
     dict(type="Reformat"),
 ]
 
-train_anno = "data/Waymo/infos_train_01sweeps_filter_zero_gt.pkl"
-val_anno = "data/Waymo/infos_val_01sweeps_filter_zero_gt.pkl"
+train_anno = "data/Waymo/infos_train_03sweeps_filter_zero_gt.pkl"
+val_anno = "data/Waymo/infos_val_03sweeps_filter_zero_gt.pkl"
 test_anno = None
 
 data = dict(
-    samples_per_gpu=4,
-    workers_per_gpu=4,
+    samples_per_gpu=8,
+    workers_per_gpu=8,
     train=dict(
         type=dataset_type,
         root_path=data_root,
