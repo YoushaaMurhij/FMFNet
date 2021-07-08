@@ -16,33 +16,81 @@ target_assigner = dict(
 
 # model settings
 model = dict(
-    type="VoxelNet",
-    pretrained=None,
-    reader=dict(
-        type="VoxelFeatureExtractorV3",
-        num_input_features=6,
+    type='TwoStageDetector',
+    first_stage_cfg=dict(
+        type="VoxelNet",
+        pretrained='waymo_exp/CP-VoxelNet-No-Neck-3Sweeps/epoch_36.pth',
+        reader=dict(
+            type="VoxelFeatureExtractorV3",
+            num_input_features=6
+        ),
+        backbone=dict(
+            type="SpMiddleResNetFHD", num_input_features=6, ds_factor=8
+        ),
+        neck=dict(
+            type="RPN",
+            layer_nums=[5, 5],
+            ds_layer_strides=[1, 2],
+            ds_num_filters=[128, 256],
+            us_layer_strides=[1, 2],
+            us_num_filters=[256, 256],
+            num_input_features=256,
+            logger=logging.getLogger("RPN"),
+        ),
+        bbox_head=dict(
+            type="CenterHead",
+            in_channels=sum([256]),
+            tasks=tasks,
+            dataset='waymo',
+            weight=2,
+            code_weights=[1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0],
+            common_heads={'reg': (2, 2), 'height': (1, 2), 'dim':(3, 2), 'rot':(2, 2)}, # (output_channel, num_conv)
+        ),
     ),
-    backbone=dict(
-        type="SpMiddleResNetFHD", num_input_features=6, ds_factor=8),
-    neck=dict(
-        type="RPN",
-        layer_nums=[5, 5],
-        ds_layer_strides=[1, 2],
-        ds_num_filters=[128, 256],
-        us_layer_strides=[1, 2],
-        us_num_filters=[256, 256],
-        num_input_features=256,
-        logger=logging.getLogger("RPN"),
+    second_stage_modules=[
+        dict(
+            type="BEVFeatureExtractor",
+            pc_start=[-75.2, -75.2],
+            voxel_size=[0.1, 0.1],
+            out_stride=8
+        )
+    ],
+    roi_head=dict(
+        type="RoIHead",
+        input_channels=512*5,
+        model_cfg=dict(
+            CLASS_AGNOSTIC=True,
+            SHARED_FC=[256, 256],
+            CLS_FC=[256, 256],
+            REG_FC=[256, 256],
+            DP_RATIO=0.3,
+
+            TARGET_CONFIG=dict(
+                ROI_PER_IMAGE=128,
+                FG_RATIO=0.5,
+                SAMPLE_ROI_BY_EACH_CLASS=True,
+                CLS_SCORE_TYPE='roi_iou',
+                CLS_FG_THRESH=0.75,
+                CLS_BG_THRESH=0.25,
+                CLS_BG_THRESH_LO=0.1,
+                HARD_BG_RATIO=0.8,
+                REG_FG_THRESH=0.55
+            ),
+            LOSS_CONFIG=dict(
+                CLS_LOSS='BinaryCrossEntropy',
+                REG_LOSS='L1',
+                LOSS_WEIGHTS={
+                'rcnn_cls_weight': 1.0,
+                'rcnn_reg_weight': 1.0,
+                'code_weights': [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
+                }
+            )
+        ),
+        code_size=7
     ),
-    bbox_head=dict(
-        type="CenterHead",
-        in_channels=sum([256]),
-        tasks=tasks,
-        dataset='waymo',
-        weight=2,
-        code_weights=[1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0],
-        common_heads={'reg': (2, 2), 'height': (1, 2), 'dim':(3, 2), 'rot':(2, 2)}, # (output_channel, num_conv)
-    ),
+    NMS_POST_MAXSIZE=500,
+    num_point=5,
+    freeze=True
 )
 
 assigner = dict(
@@ -60,6 +108,7 @@ train_cfg = dict(assigner=assigner)
 
 test_cfg = dict(
     post_center_limit_range=[-80, -80, -10.0, 80, 80, 10.0],
+    max_per_img=4096,
     nms=dict(
         use_rotate_nms=True,
         use_multi_class_nms=False,
@@ -70,13 +119,13 @@ test_cfg = dict(
     score_threshold=0.1,
     pc_range=[-75.2, -75.2],
     out_size_factor=get_downsample_factor(model),
-    voxel_size=[0.1, 0.1],
+    voxel_size=[0.1, 0.1]
 )
 
 
 # dataset settings
 dataset_type = "WaymoDataset"
-nsweeps = 3
+nsweeps = 1
 data_root = "data/Waymo"
 
 db_sampler = dict(
@@ -100,7 +149,7 @@ db_sampler = dict(
     ],
     global_random_rotation_range_per_object=[0, 0],
     rate=1.0,
-) 
+)  
 
 train_preprocessor = dict(
     mode="train",
@@ -120,7 +169,7 @@ voxel_generator = dict(
     range=[-75.2, -75.2, -2, 75.2, 75.2, 4],
     voxel_size=[0.1, 0.1, 0.15],
     max_points_in_voxel=5,
-    max_voxel_num=[150000, 200000],
+    max_voxel_num=[150000, 200000]
 )
 
 train_pipeline = [
@@ -142,7 +191,7 @@ test_pipeline = [
 
 train_anno = "data/Waymo/infos_train_03sweeps_filter_zero_gt.pkl"
 val_anno = "data/Waymo/infos_val_03sweeps_filter_zero_gt.pkl"
-test_anno = None
+test_anno = "data/Waymo/infos_test_03sweeps_filter_zero_gt.pkl"
 
 data = dict(
     samples_per_gpu=8,
@@ -172,6 +221,7 @@ data = dict(
         info_path=test_anno,
         ann_file=test_anno,
         nsweeps=nsweeps,
+        test_mode=True,
         class_names=class_names,
         pipeline=test_pipeline,
     ),
@@ -200,7 +250,7 @@ log_config = dict(
 )
 # yapf:enable
 # runtime settings
-total_epochs = 36
+total_epochs = 6
 device_ids = range(8)
 dist_params = dict(backend="nccl", init_method="env://")
 log_level = "INFO"

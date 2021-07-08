@@ -25,8 +25,8 @@ class VoxelNet(SingleStageDetector):
         x, voxel_feature = self.backbone(
             input_features, data["coors"], data["batch_size"], data["input_shape"]
         )
-        if self.with_neck:
-            x = self.neck(x)
+        # if self.with_neck:
+        #     x = self.neck(x)
 
         return x, voxel_feature
 
