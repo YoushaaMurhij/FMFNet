@@ -10,7 +10,7 @@ if [ "$(docker ps -aq -f status=exited -f name=fmf)" ]; then
 fi
 
 docker run -it -d --rm \
-    --gpus '"device=2,3,4,5"' \
+    --gpus '"device=0,2,3,5"' \
     --net host \
     -e "NVIDIA_DRIVER_CAPABILITIES=all" \
     -e "DISPLAY" \
