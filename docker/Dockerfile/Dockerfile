@@ -1,6 +1,7 @@
 FROM scrin/dev-spconv:latest
 
 ENV DEBIAN_FRONTEND=noninteractive
+RUN add-apt-repository -r "deb [arch=amd64] https://dl.bintray.com/tetrate/getenvoy-deb focal Release "
 
 RUN apt-get update  \
 	&& apt-get install -y --no-install-recommends gsutil build-essential git ca-certificates python3-pip libboost-all-dev ffmpeg libsm6 libxext6   \

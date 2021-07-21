@@ -10,7 +10,7 @@ if [ "$(docker ps -aq -f status=exited -f name=fmf)" ]; then
 fi
 
 docker run -it -d --rm \
-    --gpus '"device=0,2,3,5"' \
+    --gpus '"device=1"' \
     --net host \
     -e "NVIDIA_DRIVER_CAPABILITIES=all" \
     -e "DISPLAY" \
@@ -19,7 +19,7 @@ docker run -it -d --rm \
     -v /tmp/.X11-unix:/tmp/.X11-unix:rw \
     --name fmf \
     -v $workspace_dir/:/home/trainer/fmf:rw \
-    -v /data/Waymo/:/home/trainer/fmf/FMF/data/Waymo:rw \
+    -v /media/josh/HDD-1TB2/Waymo/:/home/trainer/fmf/FMF/data/Waymo:rw \
     x64/fmf:latest
 
 docker exec -it fmf \
