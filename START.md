@@ -25,15 +25,20 @@
 ```bash
 python3 tools/create_data.py nuscenes_data_prep --root_path=/home/trainer/fmf/FMF/data/nuScenes --version="v1.0-trainval" --nsweeps=10
 ```
+
+```bash
+export PYTHONPATH="${PYTHONPATH}:/home/trainer/fmf/FMF"
+export PYTHONPATH="${PYTHONPATH}:/home/trainer/fmf/nuscenes-devkit/python-sdk"
+```
+
 ### FMF-PointPillars-Base training:
 ```bash
-python3 tools/train.py /home/trainer/fmf/FMF/configs/nusc/pp/fmf_pp_cat_shared_conv.py --work_dir working_dir/FMF-PointPillars-Base 
+python3 tools/train.py /home/trainer/fmf/FMF/configs/nusc/pp/nusc_centerpoint_pp_02voxel_two_pfn_10sweep_no_neck.py --work_dir nusc_exp/CP-CenterPoint-No-Neck 
 ```
 ### FMF-PointPillars-Base validation: 
 Set the Batch_Size = 1 in pointpillars.py file and run this command in terminal:
 ```bash
-python3 tools/dist_test.py /home/trainer/fmf/FMF/configs/nusc/pp/fmf_pp_cat_shared_conv.py --work_dir working_dir/FMF-PointPillars-Base \
-  --checkpoint models/pp_20.pth  --speed_test --gpus 1
+python3 tools/dist_test.py /home/trainer/fmf/FMF/configs/nusc/pp/nusc_centerpoint_pp_02voxel_two_pfn_10sweep_no_neck.py --work_dir nusc_exp/CP-PointPillars-No-Neck  --checkpoint nusc_exp/CP-PointPillars-No-Neck/epoch_20.pth  --speed_test --gpus 1
 ```
 ### FMF-PointPillars-Base test:
 ```bash
@@ -47,8 +52,8 @@ python3 tools/nusc_tracking/pub_test.py --work_dir working_dir/FMF-PointPillars-
 ```
 ### FMF-VoxelNet-Base training:
 ```bash
-python3 tools/train.py /home/trainer/fmf/FMF/configs/nusc/voxelnet/nusc_fmf_voxelnet_cat_shrared_conv.py \
-  --work_dir working_dir/FMF-VoxelNet-Base #--resume_from  working_dir/FMF-VoxelNet-Base/vn_20.pth
+python3 tools/train.py /home/trainer/fmf/FMF/configs/nusc/voxelnet/nusc_fmf_voxelnet_0075voxel_fix_bn_z_no_neck.py \
+  --work_dir nusc_exp/CP-VoxelNet-No-Neck #--resume_from  working_dir/FMF-VoxelNet-Base/vn_20.pth
 ```
 ### FMF-VoxelNet-Base validation:
 Set the Batch_Size = 1 in voxelnet.py file and run this command in terminal:
