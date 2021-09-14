@@ -52,8 +52,7 @@ python3 tools/nusc_tracking/pub_test.py --work_dir working_dir/FMF-PointPillars-
 ```
 ### FMF-VoxelNet-Base training:
 ```bash
-python3 tools/train.py /home/trainer/fmf/FMF/configs/nusc/voxelnet/nusc_fmf_voxelnet_0075voxel_fix_bn_z_no_neck.py \
-  --work_dir nusc_exp/CP-VoxelNet-No-Neck #--resume_from  working_dir/FMF-VoxelNet-Base/vn_20.pth
+python3 tools/train.py /home/trainer/fmf/FMF/configs/nusc/voxelnet/nusc_fmf_voxelnet_0075voxel_fix_bn_z_no_neck.py --work_dir nusc_exp/CP-VoxelNet-No-Neck #--resume_from  working_dir/FMF-VoxelNet-Base/vn_20.pth
 ```
 ### FMF-VoxelNet-Base validation:
 Set the Batch_Size = 1 in voxelnet.py file and run this command in terminal:
