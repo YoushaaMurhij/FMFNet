@@ -130,3 +130,5 @@ dmypy.json
 FMF/waymo_exp/
 FMF/cp_exp/
 FMF/wandb/
+FMF/nusc_exp/
+FMF/work_dirs/
