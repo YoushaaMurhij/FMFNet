@@ -25,9 +25,10 @@ class PointPillars(SingleStageDetector):
         x = self.backbone(
             input_features, data["coors"], data["batch_size"], data["input_shape"]
         ) 
-
-        # if self.with_neck:
-        #     x = self.neck(x)
+        print(x.shape)   # 64, 512, 512
+        if self.with_neck:
+            x = self.neck(x)
+        print(x.shape)  # 384, 128, 128,
 
         return x
 

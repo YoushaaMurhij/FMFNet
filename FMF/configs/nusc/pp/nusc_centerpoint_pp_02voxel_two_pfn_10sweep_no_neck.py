@@ -1,4 +1,3 @@
-from FMF.det3d.models import necks
 import itertools
 import logging
 
@@ -34,17 +33,16 @@ model = dict(
         pc_range=(-51.2, -51.2, -5.0, 51.2, 51.2, 3.0),
     ),
     backbone=dict(type="PointPillarsScatter", ds_factor=1),
-    # neck=dict(
-    #     type="RPN",
-    #     layer_nums=[3, 5, 5],
-    #     ds_layer_strides=[2, 2, 2],
-    #     ds_num_filters=[64, 128, 256],
-    #     us_layer_strides=[0.5, 1, 2],
-    #     us_num_filters=[128, 128, 128],
-    #     num_input_features=64,
-    #     logger=logging.getLogger("RPN"),
-    # ),
-    neck=None,
+    neck=dict(
+        type="RPN",
+        layer_nums=[3, 5, 5],
+        ds_layer_strides=[2, 2, 2],
+        ds_num_filters=[64, 128, 256],
+        us_layer_strides=[0.5, 1, 2],
+        us_num_filters=[128, 128, 128],
+        num_input_features=64,
+        logger=logging.getLogger("RPN"),
+    ),
     bbox_head=dict(
         # type='RPNHead',
         type="CenterHead",

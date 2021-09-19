@@ -33,7 +33,7 @@ export PYTHONPATH="${PYTHONPATH}:/home/trainer/fmf/nuscenes-devkit/python-sdk"
 
 ### FMF-PointPillars-Base training:
 ```bash
-python3 tools/train.py /home/trainer/fmf/FMF/configs/nusc/pp/nusc_centerpoint_pp_02voxel_two_pfn_10sweep_no_neck.py --work_dir nusc_exp/CP-CenterPoint-No-Neck 
+python3 tools/train.py /home/trainer/fmf/FMF/configs/nusc/pp/nusc_centerpoint_pp_02voxel_two_pfn_10sweep_no_neck.py --work_dir nusc_exp/CP-PP-No-Neck 
 ```
 ### FMF-PointPillars-Base validation: 
 Set the Batch_Size = 1 in pointpillars.py file and run this command in terminal:
@@ -77,9 +77,9 @@ export CUDA_VISIBLE_DEVICES='0,1,2,3' # specify the GPU devices numbers for trai
 export num_gpus=4 # the number of used GPU devices
 ```
 ### FMF-PointPillars-Base
-```bash
-python3 -m torch.distributed.launch --nproc_per_node=4 ./tools/train.py  /home/trainer/fmf/FMF/configs/nusc/pp/fmf_pp_cat_shared_conv.py \
- --work_dir working_dir/FMF-PointPillars-Base --resume_from models/pp_20.pth
+```bash  
+python3 -m torch.distributed.launch --nproc_per_node=2 ./tools/train.py  /home/trainer/fmf/FMF/configs/nusc/pp/nusc_centerpoint_pp_02voxel_two_pfn_10sweep_no_neck.py \
+ --work_dir nusc_exp/CP-PP-No-Neck  --resume_from models/pp_20.pth
 ```
 ### FMF-VoxelNet-Base
 ```bash
