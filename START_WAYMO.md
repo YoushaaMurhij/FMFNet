@@ -81,16 +81,14 @@ python tools/dist_test.py /home/trainer/fmf/FMF/configs/waymo/voxelnet/waymo_cen
 ## Tracking
 To be updated later!
 
-
+```bash
 export CUDA_VISIBLE_DEVICES='0,1,2,3' # specify the GPU devices numbers for training
 export num_gpus=4 # the number of used GPU devices
 python -m torch.distributed.launch --nproc_per_node=4 ./tools/train.py /home/trainer/fmf/FMF/configs/waymo/pp/waymo_centerpoint_pp_two_pfn_stride1_3x_no_neck.py --work_dir waymo_exp/CP-PP-No-Neck-3Sweeps 
-
-
+```
+```bash
 export CUDA_VISIBLE_DEVICES='0,1,2,3' # specify the GPU devices numbers for training
 export num_gpus=4 # the number of used GPU devices
 python -m torch.distributed.launch --nproc_per_node=4 ./tools/train.py /home/trainer/fmf/FMF/configs/waymo/voxelnet/two_stage/waymo_fmf_voxelnet_two_stage_bev_5point_ft_6epoch_freeze_no_neck.py --work_dir waymo_exp/CP-VoxelNet-No-Neck-3Sweeps-2nd-stage 
-
-
-CUDA_VISIBLE_DEVICES=1 python tools/train.py  
+```
 
