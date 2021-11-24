@@ -7,7 +7,7 @@ RUN apt-get -y  upgrade
 
 RUN apt install -y python3-pip apt-transport-https ca-certificates gnupg software-properties-common wget git ninja-build libboost-dev build-essential
 
-RUN conda install pytorch torchvision cudatoolkit=11.3 -c pytorch
+RUN pip3 install torch==1.10.0+cu102 torchvision==0.11.1+cu102 -f https://download.pytorch.org/whl/cu102/torch_stable.html
 
 
 
