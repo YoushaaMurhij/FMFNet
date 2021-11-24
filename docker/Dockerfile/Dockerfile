@@ -7,7 +7,8 @@ RUN apt-get -y  upgrade
 
 RUN apt install -y python3-pip apt-transport-https ca-certificates gnupg software-properties-common wget git ninja-build libboost-dev build-essential
 
-RUN pip3 install torch==1.7.1+cu110 torchvision==0.8.2+cu110 -f https://download.pytorch.org/whl/torch_stable.html
+RUN conda install pytorch torchvision cudatoolkit=11.3 -c pytorch
+
 
 
 # Install CMake
