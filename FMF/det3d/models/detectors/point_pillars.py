@@ -29,7 +29,6 @@ class PointPillars(SingleStageDetector):
         if self.with_neck:
             x = self.neck(x)
 
-
         return x
 
     def forward(self, example, return_loss=True, **kwargs):
