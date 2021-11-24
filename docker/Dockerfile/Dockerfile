@@ -1,21 +1,45 @@
-FROM scrin/dev-spconv:latest
+# modified from https://github.com/xfbs/docker-openpcdet
+FROM nvidia/cuda:11.0.3-cudnn8-devel-ubuntu18.04
 
 ENV DEBIAN_FRONTEND=noninteractive
-RUN add-apt-repository -r "deb [arch=amd64] https://dl.bintray.com/tetrate/getenvoy-deb focal Release "
+RUN apt update
+RUN apt-get -y  upgrade
 
-RUN apt-get update  \
-	&& apt-get install -y --no-install-recommends gsutil build-essential git ca-certificates python3-pip libboost-all-dev ffmpeg libsm6 libxext6   \
-	&& rm -rf /var/lib/apt/lists/*
-RUN python3 -m pip install --upgrade pip 
-RUN python3 -m pip install wheel pyyaml numpy ipython
-ENV PATH=/usr/local/nvidia/bin:/usr/local/cuda/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+RUN apt install -y python3-pip apt-transport-https ca-certificates gnupg software-properties-common wget git ninja-build libboost-dev build-essential
 
-# CMake installation
-RUN wget -q https://github.com/Kitware/CMake/releases/download/v3.16.4/cmake-3.16.4-Linux-x86_64.tar.gz
-RUN tar -xzf cmake-3.16.4-Linux-x86_64.tar.gz --exclude=bin/cmake-gui --exclude=doc/cmake --exclude=share/cmake-3.12/Help  \
-	&& cp -fR cmake-3.16.4-Linux-x86_64/* /usr  \
-	&& rm -rf cmake-3.16.4-Linux-x86_64  \
-	&& rm cmake-3.16.4-Linux-x86_64.tar.gz
+RUN pip3 install torch==1.7.1+cu110 torchvision==0.8.2+cu110 -f https://download.pytorch.org/whl/torch_stable.html
+
+
+# Install CMake
+RUN wget -O - https://apt.kitware.com/keys/kitware-archive-latest.asc 2>/dev/null | gpg --dearmor - > /etc/apt/trusted.gpg.d/kitware.gpg
+RUN apt-add-repository 'deb https://apt.kitware.com/ubuntu/ bionic main'
+RUN apt-get update && apt install -y cmake
+
+# Install spconv
+COPY spconv /code/spconv
+WORKDIR /code/spconv
+ENV SPCONV_FORCE_BUILD_CUDA=1
+RUN python3 setup.py bdist_wheel
+RUN pip3 install dist/*.whl
+
+# Install LLVM 10
+WORKDIR /code
+RUN wget https://apt.llvm.org/llvm.sh && chmod +x llvm.sh && ./llvm.sh 10
+
+# OpenPCDet dependencies fail to install unless LLVM 10 exists on the system
+# and there is a llvm-config binary available, so we have to symlink it here.
+RUN ln -s /usr/bin/llvm-config-10 /usr/bin/llvm-config
+
+RUN pip3 install --upgrade pip
+
+ARG TORCH_CUDA_ARCH_LIST="5.2 6.0 6.1 7.0 7.5 8.0+PTX"
+
+# Install CenterPoint
+RUN update-alternatives --install /usr/bin/python python /usr/bin/python3 0
+COPY requirements.txt requirements.txt
+RUN pip3 install -r requirements.txt
+RUN pip3 uninstall opencv-python  --yes
+RUN pip3 install opencv-python-headless 
 
 # # Apex installation
 WORKDIR /tmp/unique_for_apex
@@ -25,25 +49,5 @@ RUN git clone https://github.com/NVIDIA/apex.git  \
 	#&& python3 setup.py install
 	&& pip3 install -v --no-cache-dir --global-option="--cpp_ext" --global-option="--cuda_ext" ./
 
-# installing fmf dependencies
-RUN	pip install scikit-image scipy numba matplotlib fire protobuf opencv-python opencv-contrib-python pybind11 vtk joblib \
-	easydict open3d-python terminaltables pytest-runner addict pycocotools==2.0.1 imagecorruptions objgraph cachetools descartes \
-	motmetrics pandas Pillow==8.1.2 pyquaternion scikit-learn Shapely tqdm requests empy filterpy
-RUN pip3 install ninja  
-RUN pip3 install waymo-open-dataset-tf-2-2-0 
-RUN pip3 install wandb
-
-
-
-# ARG USER=trainer
-# ARG UID=1000
-# ARG GID=1000
-# # default password
-# ARG PW=user 
-
-# RUN useradd -m ${USER} --uid=${UID} && echo "${USER}:${PW}" | chpasswd && adduser ${USER} sudo
-
-# WORKDIR /home/${USER}
-# RUN cd /home/${USER} && mkdir -p fmf && chown -R ${UID}:${GID} ./
-
-# USER ${UID}:${GID}
+ENV PYTHONPATH "${PYTHONPATH}:/home/trainer/centerpoint/CenterPoint"
+ENV PYTHONPATH "${PYTHONPATH}:/home/trainer/centerpoint/nuscenes-devkit/python-sdk"
