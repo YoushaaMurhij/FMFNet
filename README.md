@@ -61,5 +61,5 @@ FMFNet is released under MIT license (see [LICENSE](LICENSE)). It is developed b
 ## Contact
 Questions and suggestions are welcome! 
 
-Youshaa Murhij [yosha[dot]morheg[at]phystech[dot]edu](mailto:yosha.morheg@phystech.edu) 
+Youshaa Murhij [yosha[dot]morheg[at]phystech[dot]edu](mailto:) 
 
