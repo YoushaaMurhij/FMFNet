@@ -5,10 +5,10 @@
 ![img|center](./demo.GIF)
 
 
+Code will be updated with new features soon!
+
 ## Abstract
-Three-dimensional object detection and tracking from point clouds is an important aspect in autonomous driving tasks for robots and vehicles where objects can be represented as 3D boxes. Accurate understanding of the surrounding environment is critical for successful autonomous driving. In this paper, we present an approach of considering time-spatial feature map aggregation from different time steps of deep neural model inference (named feature map flow, FMF). We propose several versions of the FMF:
-from common concatenation to context-based feature map fusion and odometry usage for previous feature map affine transform. Proposed approach significantly improves the quality of 3D detection and tracking baseline. Our centerbased model achieved better performance on the nuScenes benchmark for both 3D detection and tracking, with 3-4% mAP, 1-2% NDS, and 1-3% AMOTA higher than a baseline state-of-the-art model. We performed a software implementation of the proposed method optimized for the NVidia
-Jetson AGX Xavier single-board computer with point cloud processing speed of 6-9 FPS.
+To be updated.
 
 ## Main Results
 #### 3D detection on nuScenes test set 
