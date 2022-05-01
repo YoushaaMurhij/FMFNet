@@ -6,7 +6,7 @@
 Code and results will be updated after publishing the paper!
 
 ## Abstract
-To be updated.
+To be updated soon.
 
 ## Main Results
 #### 3D detection on nuScenes test set 
