@@ -44,6 +44,7 @@ RUN update-alternatives --install /usr/bin/python python /usr/bin/python3 0
 COPY requirements.txt requirements.txt
 RUN pip3 install -r requirements.txt
 RUN pip3 uninstall opencv-python  --yes
+RUN pip3 uninstall pycocotools
 RUN pip3 install opencv-python-headless pycocotools==2.0.0 open3d                                                                                           
 
 # # Apex installation
