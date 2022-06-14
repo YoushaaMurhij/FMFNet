@@ -12,6 +12,10 @@
 
 Code and results will be updated after publishing the paper!
 
+## News
+[26-04-2022] FMFNet is accepted at [IEEE WCCI (IJCNN) 2022](https://wcci2022.org/) 🔥 </br>
+[20-05-2021] FMFNet team got the 5th rank in [Real-time 3D detection challenge](https://waymo.com/open/challenges/2021/real-time-3d-prediction/) hosted by [CVPR 2021 Workshop on Autonomous Driving (WAD)]( https://cvpr2021.wad.vision/) and a [brief technical report](https://arxiv.org/abs/2106.14101) was published in the proceddings of the workshop.
+
 ## Abstract
 Three-dimensional object detection and tracking from point clouds are important computer vision tasks for robots and vehicles where objects can be represented as 3D boxes. Improving the accuracy of understanding the environment is critical for successful autonomous driving.This paper presents a simple yet efficient method called “Feature Map Flow, FMF” for 3D object detection and tracking, considering time-spatial feature map aggregation from different timesteps of deep neural model inference. Several versions of the FMF are proposed: from common concatenation to context-based feature map fusion and odometry usage for previous feature map affine transform.
 The proposed approach significantly improves the quality of 3D detection and tracking baseline on the nuScenes and Waymo benchmarks.
