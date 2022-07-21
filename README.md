@@ -1,5 +1,5 @@
 # Official Pytorch implementation for "FMFNet: Improve the 3D Object Detection and Tracking via Feature Map Flow" Paper [accepted in IJCNN-2022] <br>
-![workflow](https://github.com/YoushaaMurhij/FMFNet/actions/workflows/main.yml/badge.svg) [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT) 
+![workflow](https://github.com/YoushaaMurhij/FMFNet/actions/workflows/main.yml/badge.svg) [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT) ![Visitor count](https://shields-io-visitor-counter.herokuapp.com/badge?page=YoushaaMurhij/FMFNet)
 
 <!-- ### FMF main pipeline:
 <img src="./assets/fmfnet.png" alt="drawing" width="800"/> -->
