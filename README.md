@@ -71,3 +71,13 @@ Questions and suggestions are welcome!
 
 Youshaa Murhij [yosha[dot]morheg[at]phystech[dot]edu](mailto:) <br>
 Dmitry Yudin [yudin[dot]da[at]mipt[dot]ru](mailto:) 
+
+## Cite
+@inproceedings{murhij2022fmfnet,
+  title={FMFNet: Improve the 3D Object Detection and Tracking via Feature Map Flow},
+  author={Murhij, Youshaa and Yudin, Dmitry},
+  booktitle={2022 International Joint Conference on Neural Networks (IJCNN)},
+  pages={1--8},
+  year={2022},
+  organization={IEEE}
+}
