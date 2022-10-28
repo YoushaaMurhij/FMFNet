@@ -10,8 +10,6 @@
 ### FMF Demo:
 <img src="./assets/demo.GIF" alt="drawing" width="800"/>
 
-Code and results will be updated after publishing the paper!
-
 ## News
 [03-10-2022] [FMFNet Paper](https://ieeexplore.ieee.org/document/9892748) is published on IEEE Xplore 🔥 <br>
 [22-07-2022] [FMFNet Poster](https://www.researchgate.net/publication/362166729_FMFNet_Improve_the_3D_Object_Detection_and_Tracking_via_Feature_Map_Flow) is represented in the International Joint Conference on Neural Networks (IJCNN 2022).<br>
@@ -74,7 +72,7 @@ Youshaa Murhij [yosha[dot]morheg[at]phystech[dot]edu](mailto:) <br>
 Dmitry Yudin [yudin[dot]da[at]mipt[dot]ru](mailto:) 
 
 ## Citation
-If you find this project useful in your research, please consider cite:
+If you find this project useful in your research, please consider citing our work:
 
 ```
 @inproceedings{murhij2022fmfnet,
