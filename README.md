@@ -73,7 +73,9 @@ Questions and suggestions are welcome!
 Youshaa Murhij [yosha[dot]morheg[at]phystech[dot]edu](mailto:) <br>
 Dmitry Yudin [yudin[dot]da[at]mipt[dot]ru](mailto:) 
 
-## Cite
+## Citation
+If you find this project useful in your research, please consider cite:
+
 ```
 @inproceedings{murhij2022fmfnet,
   title={FMFNet: Improve the 3D Object Detection and Tracking via Feature Map Flow},
