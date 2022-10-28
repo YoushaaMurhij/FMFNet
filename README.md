@@ -13,6 +13,7 @@
 Code and results will be updated after publishing the paper!
 
 ## News
+[03-10-2022] [FMFNet Paper](https://ieeexplore.ieee.org/document/9892748) is published on IEEE Xplore. 
 [22-07-2022] [FMFNet Poster](https://www.researchgate.net/publication/362166729_FMFNet_Improve_the_3D_Object_Detection_and_Tracking_via_Feature_Map_Flow) is represented in the International Joint Conference on Neural Networks (IJCNN 2022).
 [26-04-2022] FMFNet is accepted at [IEEE WCCI (IJCNN) 2022](https://wcci2022.org/) 🔥 <br>
 [20-05-2021] FMFNet team got the 5th rank in [Real-time 3D detection challenge](https://waymo.com/open/challenges/2021/real-time-3d-prediction/) hosted by [CVPR 2021 Workshop on Autonomous Driving (WAD)]( https://cvpr2021.wad.vision/) and a [brief technical report](https://arxiv.org/abs/2106.14101) was published in the proceddings of the workshop.
